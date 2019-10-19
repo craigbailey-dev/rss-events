@@ -31,7 +31,7 @@ Resources:
             TopicName: !Ref TopicName
       Environment:
         Variables:
-          DYNAMO_TABLE: !Ref ItemsTable
+          DYNAMO_TABLE: !Ref SourcesTableName
           TOPIC_ARN: !Ref TopicArn
       Events:
         GetSourcesEvent:
