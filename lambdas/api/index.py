@@ -63,7 +63,9 @@ def list_sources():
                     for item in scan_response['Items']
                 ])
             next_scan_key = scan_response["LastEvaluatedKey"] if "LastEvaluatedKey" in scan_response else None
-        return sources
+        return {
+            "Sources" : sources
+        }
     except ClientError as ce: 
         return handle_boto3_error(ce) 
     except Exception as e: 
@@ -116,7 +118,18 @@ def delete_source():
 @app.route('/subscriptions', methods=["GET"])
 def list_subscriptions():
     try: 
-        return {"Message" : "Success"}
+        subscriptions = []
+        next_token = "?"
+        while next_token:
+            list_request = {
+                TopicArn: os.environ["TOPIC_ARN"]
+            }
+            if next_token != "?":
+                list_request["NextToken"] = next_token
+            list_response = sns_client.list_subscriptions_by_topic(**list_request)
+            subscriptions.extend(list_response["Subscriptions"])
+            next_token = list_response["NextToken"] if "NextToken" in list_response else None
+        return {"Subscriptions" : subscriptions}
     except ClientError as ce: 
         return handle_boto3_error(ce) 
     except Exception as e: 
