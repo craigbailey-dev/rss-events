@@ -1,0 +1,109 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform:
+- AWS::Serverless-2016-10-31
+
+
+Parameters:
+  SourcesTableName:
+    Type: String
+  TopicName:
+    Type: String
+  TopicArn:
+    Type: String
+  ScheduleExpression:
+    Type: String
+
+Resources:
+   
+  ItemsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions: 
+        -
+          AttributeName: source
+          AttributeType: S
+        -
+          AttributeName: timestamp
+          AttributeType: N
+        -
+          AttributeName: guidHash
+          AttributeType: S
+        -
+          AttributeName: expiration
+          AttributeType: N
+      BillingMode: PAY_PER_REQUEST
+      TimeToLiveSpecification:
+        AttributeName: expiration
+        Enabled: true
+      KeySchema:
+        -
+          AttributeName: source
+          KeyType: HASH
+        -
+          AttributeName: guidHash
+          KeyType: RANGE
+      LocalSecondaryIndexes:
+        -
+            IndexName: timeSorted
+            KeySchema: 
+              -
+                AttributeName: source
+                KeyType: HASH
+              -
+                AttributeName: timestamp
+                KeyType: RANGE
+            Projection: 
+              ProjectionType: ALL
+
+  ChannelQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      VisibilityTimeout: 60
+      
+
+  ListSourcesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: python3.7
+      CodeUri: ../lambdas/list-sources
+      Timeout: 90
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref SourcesTableName
+        - SQSSendMessagePolicy:
+            QueueName: !GetAtt ChannelQueue.QueueName
+      Environment:
+        Variables:
+          DYNAMO_TABLE: !Ref SourcesTableName
+          QUEUE_URL: !Ref ChannelQueue
+      Events:
+        ScheduleEvent:
+          Type: Schedule
+          Properties:
+            Schedule: !Ref ScheduleExpression
+            Enabled: True
+
+
+  ProcessSourceFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: python3.7
+      CodeUri: ../lambdas/process-source
+      Timeout: 30
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ItemsTable
+        - SQSPollerPolicy:
+            QueueName: !GetAtt ChannelQueue.QueueName
+      Environment:
+        Variables:
+          DYNAMO_TABLE: !Ref ItemsTable
+          QUEUE_URL: !Ref ChannelQueue
+      Events:
+        SQSEvent:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt ChannelQueue.Arn
+            Enabled: True

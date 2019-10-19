@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.7
+    commands:
+      - pip install --upgrade awscli
+
+  pre_build:
+    commands:
+      - cd lambdas/api
+      - cd ../..
+  
+  build:
+    commands:
+      - aws cloudformation package --template root.yaml --s3-bucket $S3_BUCKET --output-template root-export.yaml
+
+artifacts:
+  type: zip
+  files:
+    - root-export.yaml

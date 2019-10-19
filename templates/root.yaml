@@ -1,0 +1,45 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform:
+- AWS::Serverless-2016-10-31
+
+Parameters:
+  ScheduleExpression:
+    Type: String
+
+Resources:
+
+  SourcesTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: source
+        Type: String
+
+  NotificationTopic:
+    Type: AWS::SNS::Topic
+
+  FeedReaderStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: feed-reader.yaml
+      Parameters:
+        SourcesTableName: !Ref SourcesTable
+        TopicName: !GetAtt NotificationTopic.TopicName
+        TopicArn: !Ref NotificationTopic
+        ScheduleExpression: !Ref ScheduleExpression
+
+  ApiStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: api.yaml
+      Parameters:
+        SourcesTableName: !Ref SourcesTable
+        TopicName: !GetAtt NotificationTopic.TopicName
+        TopicArn: !Ref NotificationTopic
+
+  WebsiteStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: website.yaml
+      Parameters:
+        RestApiId: !GetAtt [ApiStack, Outputs.RestApiId]

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<rss version="2.0">
+  <channel>
+    <link>https://aws.amazon.com/about-aws/whats-new/recent/</link>
+    <title>Recent Announcements</title>
+    <description>The AWS Cloud platform expands daily. Learn about announcements, launches, news, innovation and more from Amazon Web Services.</description>
+    <managingEditor>aws@amazon.com (Amazon Web Services)</managingEditor>
+    <lastBuildDate>Fri, 11 Oct 2019 00:45:03 +0000</lastBuildDate>
+    <pubDate>Fri, 11 Oct 2019 00:45:03 +0000</pubDate>
+    <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+    <image>
+      <url>https://a0.awsstatic.com/main/images/logos/aws_logo_smile_179x109.png</url>
+      <link>https://aws.amazon.com/about-aws/whats-new/recent/</link>
+      <title>Recent Announcements</title>
+      <description>The AWS Cloud platform expands daily. Learn about announcements, launches, news, innovation and more from Amazon Web Services.</description>
+    </image>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/amazon-route-53-resolver-endpoints-for-hybrid-cloud-now-available-in-aws-govcloud-us-regions/</link>
+      <guid isPermaLink="false">038793bca7e8e1d5571f491880b378875a10ec58</guid>
+      <title>Amazon Route 53 Resolver Endpoints for Hybrid Cloud Now Available in AWS GovCloud (US) Regions</title>
+      <description>&lt;p&gt;You can now use Amazon Route 53 Resolver endpoints for hybrid cloud configurations in the AWS GovCloud (US) Regions. These AWS Regions are isolated AWS Regions designed to allow U.S. government agencies and customers to move sensitive workloads into the cloud by addressing their specific regulatory and compliance requirements.&lt;br /&gt; &lt;/p&gt;</description>
+      <pubDate>Thu, 10 Oct 2019 19:56:33 +0000</pubDate>
+      <category>general:products/aws-govcloud-us,marketing:marchitecture/networking-and-content-delivery</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/aws-glue-now-provides-ability-to-use-custom-certificates-for-jdbc-connections/</link>
+      <guid isPermaLink="false">d1cdf863ef2fe8d69e6d54eebcf1391c21eb3697</guid>
+      <title>AWS Glue now provides ability to use custom certificates for JDBC Connections</title>
+      <description>&lt;p&gt;Starting today, you can now use custom certificates in AWS Glue when using JDBC connections to connect to your data sources from Glue ETL jobs and crawlers. You may decide to use custom certificates because you already obtained a certificate from a third-party issuer, or because the default certificates supported by AWS Glue do not meet your requirements. Previously, you were only able to use the default certificates supported by AWS Glue.&amp;nbsp;&lt;/p&gt;</description>
+      <pubDate>Thu, 10 Oct 2019 23:29:03 +0000</pubDate>
+      <category>general:products/aws-glue</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/aws-firewall-manager-now-supports-management-of-amazon-vpc-security-groups/</link>
+      <guid isPermaLink="false">2354b20d36cd86c96c541db4668db74d49dcbdd3</guid>
+      <title>AWS Firewall Manager now supports management of Amazon VPC security groups</title>
+      <description>&lt;p&gt;AWS Firewall Manager is a security management tool to centrally configure and manage firewall rules across your accounts and Amazon VPCs. AWS Firewall Manager now supports Amazon VPC security groups, making it easier for security administrators to centrally configure security groups across multiple accounts in their organization, and continuously audit them to detect overly permissive or misconfigured rules.&lt;br /&gt; &lt;/p&gt;</description>
+      <pubDate>Thu, 10 Oct 2019 21:07:43 +0000</pubDate>
+      <category>marketing:marchitecture/security-identity-and-compliance,general:use-case/security-compliance,general:products/aws-firewall-manager,general:products/amazon-vpc,general:products/amazon-ec2</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/aws-chatbot-now-supports-notifications-from-aws-config/</link>
+      <guid isPermaLink="false">98b3fc11380a7dcfe233994873eb09e99181e000</guid>
+      <title>AWS Chatbot Now Supports Notifications from AWS Config</title>
+      <description>&lt;p&gt;AWS Chatbot now makes it easy to receive notifications from AWS Config in your team’s &lt;a href="https://slack.com/"&gt;Slack&lt;/a&gt; channels and Amazon Chime chat rooms. You can receive notifications about Config rule compliance or configuration item changes. Receiving notifications in your channels or chat rooms enables your entire team to review and collaborate quickly.&lt;/p&gt;</description>
+      <pubDate>Thu, 10 Oct 2019 17:07:56 +0000</pubDate>
+      <category>marketing:marchitecture/management-and-governance,general:products/aws-config</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/amazon-appstream-2-now-available-in-aws-govcloud-us-west-region/</link>
+      <guid isPermaLink="false">ee26f39f55bf7684c1aadd995373b60bc9da7852</guid>
+      <title>Amazon AppStream 2.0  Is Now Available in the AWS GovCloud (US-West) Region</title>
+      <description>&lt;p&gt;Amazon AppStream 2.0 is now available in the &lt;a href="/govcloud-us/"&gt;AWS GovCloud (US-West) Region&lt;/a&gt;, an isolated AWS Region designed to host sensitive data and regulated workloads in the cloud for customers who have U.S. federal, state, or local government compliance requirements. With this launch, Amazon AppStream 2.0 is now available in nine AWS Regions. For a list of regions where AppStream 2.0 is available, see the &lt;a href="/about-aws/global-infrastructure/regional-product-services/"&gt;AWS Region Table&lt;/a&gt;. You can deploy general purpose, compute-optimized, memory-optimized, and graphics-pro streaming instances in the AWS GovCloud (US-West) Region to meet the needs of your users. Graphics-design instances are not available at this time. &amp;nbsp;&lt;/p&gt;</description>
+      <pubDate>Thu, 10 Oct 2019 16:51:56 +0000</pubDate>
+      <category>general:products/amazon-appstream-2-0,marketing:marchitecture/desktop-and-app-streaming,general:products/aws-govcloud-us</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/aws-console-mobile-application-launches-federated-login-for-ios/</link>
+      <guid isPermaLink="false">7f84b33246140293b4dec15d64049fd26c578f2c</guid>
+      <title>AWS Console Mobile Application Launches Federated Login for iOS</title>
+      <description>&lt;p&gt;iOS users can now use federated login to authenticate to the AWS Console Mobile Application. &lt;br /&gt; &lt;/p&gt;</description>
+      <pubDate>Thu, 10 Oct 2019 18:48:45 +0000</pubDate>
+      <category/>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/amazon-ecs-now-supports-ecs-image-sha-tracking/</link>
+      <guid isPermaLink="false">987a63e1cbf864a2f908b9d7f1db97c2b810ee5f</guid>
+      <title>Amazon ECS now Supports ECS Image SHA Tracking</title>
+      <description>&lt;p&gt;&lt;a href="/ecs/"&gt;Amazon Elastic Container Services (ECS)&lt;/a&gt; enables you to correlate container images pulled from ECR with scheduled tasks and where it is running, on Amazon EC2 or &lt;a href="/fargate/"&gt;Fargate&lt;/a&gt;. Now you have visibility and an immutable attribute to identify where your container image has been deployed to track application adoption, incident response and lifecycle management.&lt;br /&gt; &lt;/p&gt;</description>
+      <pubDate>Thu, 10 Oct 2019 23:14:22 +0000</pubDate>
+      <category>general:products/amazon-ecs,marketing:marchitecture/containers-and-deployment</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/amazon-sagemaker-ground-truth-adds-built-in-workflows-for-verification-and-adjustment-of-data-labels/</link>
+      <guid isPermaLink="false">f54e5e1037078f7dd30e4eb87bcde88ef3c243cd</guid>
+      <title>Amazon SageMaker Ground Truth Adds Built-in Workflows for the Verification and Adjustment of Data Labels</title>
+      <description>&lt;p&gt;Today, Amazon SageMaker Ground Truth launched built-in workflows for label verification and label adjustment. One way that ML practitioners have improved the accuracy of their labeled data is through using audit workflows. Audit workflows enable a group of reviewers to verify the accuracy of labels (a process called label verification) or adjust them (a process called label adjustment) if needed.&lt;br /&gt; &lt;/p&gt;</description>
+      <pubDate>Thu, 10 Oct 2019 21:12:17 +0000</pubDate>
+      <category>general:products/amazon-sagemaker,general:products/amazon-machine-learning</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/amazon-api-gateway-supports-secured-connectivity-between-rest-apis-amazon-virtual-private-clouds-middle-east/</link>
+      <guid isPermaLink="false">131f110d29d6664124189c2b1970e8bf0002405a</guid>
+      <title>Amazon API Gateway supports secured connectivity between REST APIs &amp; Amazon Virtual Private Clouds in Middle East (BAH)</title>
+      <description>&lt;p&gt; Amazon API Gateway supports secured connectivity between REST APIs and Amazon Virtual Private Clouds (VPCs) in Middle East (BAH). Customers can now isolate traffic between their Amazon VPCs and REST APIs from the internet using Private API and VPC Link features provided by API Gateway. &lt;/p&gt;</description>
+      <pubDate>Thu, 10 Oct 2019 21:29:36 +0000</pubDate>
+      <category>marketing:marchitecture/networking-and-content-delivery,general:products/amazon-api-gateway</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/amazon-textract-is-now-a-hipaa-eligible-service/</link>
+      <guid isPermaLink="false">55290c3f7990e54c774883bb6030d9ddcbbb8819</guid>
+      <title>Amazon Textract Is Now a HIPAA Eligible Service</title>
+      <description>&lt;p&gt;Starting today, Amazon Textract is a HIPAA eligible service. HIPAA eligibility applies to all AWS Regions where Amazon Textract is available. This means you can use Amazon Textract to help you process protected health information (PHI) extracted from images to power your healthcare applications.&lt;br /&gt; &lt;/p&gt;</description>
+      <pubDate>Fri, 11 Oct 2019 00:45:03 +0000</pubDate>
+      <category>general:products/amazon-textract,general:products/amazon-machine-learning</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/amazon-sqs-fifo-queues-are-now-available-in-the-aws-middle-east-bahrain-region/</link>
+      <guid isPermaLink="false">bb73e8e203726397276b2340ee1973b9b0fea7ae</guid>
+      <title>Amazon SQS FIFO Queues are Now Available in the AWS Middle East (Bahrain) Region</title>
+      <description>&lt;p&gt;Amazon Simple Queue Service (Amazon SQS)&amp;nbsp;FIFO (First-In-First-Out) queues are now available in the AWS Middle East (Bahrain) Region.&amp;nbsp;&lt;/p&gt;</description>
+      <pubDate>Thu, 10 Oct 2019 19:17:20 +0000</pubDate>
+      <category>general:products/amazon-sqs</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/amazon-inspector-adds-cis-benchmark-support-for-windows-2016/</link>
+      <guid isPermaLink="false">35244a5caa156b5c9ee94eb7b4691b3ae78f9ac1</guid>
+      <title>Amazon Inspector adds CIS Benchmark support for Windows 2016</title>
+      <description>&lt;p&gt;Amazon Inspector expands Center for Internet Security's CIS Benchmarks support for Windows 2016. You can now run Inspector CIS assessments on Windows 2016 to check the configuration of your Amazon EC2 instances against the security configuration best practices developed by CIS. &amp;nbsp;&lt;/p&gt;</description>
+      <pubDate>Thu, 10 Oct 2019 18:40:05 +0000</pubDate>
+      <category>general:products/amazon-inspector,marketing:marchitecture/security-identity-and-compliance</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/amazon-lex-adds-support-for-checkpoints-in-session-apis/</link>
+      <guid isPermaLink="false">1120177b510e6e44e378a0bc819b48f29ba8716b</guid>
+      <title>Amazon Lex Adds Support for Checkpoints in Session APIs</title>
+      <description>&lt;p&gt;&lt;a href="/lex/"&gt;Amazon Lex&lt;/a&gt; now supports checkpoints in session APIs making it easier to manage conversation flows. &amp;nbsp;&lt;/p&gt;</description>
+      <pubDate>Thu, 10 Oct 2019 21:34:42 +0000</pubDate>
+      <category>general:products/amazon-machine-learning,marketing:marchitecture/artificial-intelligence</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/amazon-rds-enables-detailed-backup-storage-billing/</link>
+      <guid isPermaLink="false">18cd3e13dd3b3f1241aa65f14010956537cd35e4</guid>
+      <title>Amazon RDS Enables Detailed Backup Storage Billing </title>
+      <description>&lt;p&gt;When using &lt;a href="/rds/"&gt;Amazon Relational Database Service (Amazon RDS)&lt;/a&gt;, you can now view detailed billing at the database instance level. This information is available for RDS automated database backups and manual database snapshots, and can be viewed in &lt;a href="/aws-cost-management/aws-cost-explorer/"&gt;AWS Cost Explorer&lt;/a&gt; and &lt;a href="/aws-cost-management/aws-cost-and-usage-reporting/"&gt;Cost and Usage Report (CUR)&lt;/a&gt;.&lt;br /&gt; &lt;/p&gt;</description>
+      <pubDate>Thu, 10 Oct 2019 21:32:47 +0000</pubDate>
+      <category>general:products/amazon-rds,general:products/aws-backup,general:content-type/customer-snapshot,general:products/cost-usage-reports,general:products/aws-cost-explorer,general:products/aws-govcloud-us</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/aws-secrets-manager-available-in-aws-govcloud-region-and-asia-pacific-region/</link>
+      <guid isPermaLink="false">c932902a825c80f5fb2c8a5f90e0ccff94199bea</guid>
+      <title>AWS Secrets Manager is now available in the AWS GovCloud (US-East) region and the AWS Asia Pacific (Hong Kong) region</title>
+      <description>&lt;p&gt;Customers in the AWS GovCloud (US-East) region and the AWS Asia Pacific (Hong Kong) region can now use&amp;nbsp;&lt;a href="/secrets-manager/"&gt;AWS Secrets Manager&lt;/a&gt; to manage secrets such as database passwords and API keys needed to access their applications, services, and IT resources. &amp;nbsp;&lt;/p&gt;</description>
+      <pubDate>Wed, 09 Oct 2019 23:27:55 +0000</pubDate>
+      <category>general:products/aws-secrets-manager,general:products/aws-govcloud-us</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/amazon-ecs-adds-support-g4-instance-type/</link>
+      <guid isPermaLink="false">05ecbc59a63ead5cac879c5a87e63d02a73927e1</guid>
+      <title>Amazon ECS adds support for G4 Instance types</title>
+      <description>&lt;p&gt;Amazon Elastic Container Service(ECS) now supports the ability to add &lt;a href="/ec2/instance-types/g4/"&gt;G4 Instance types&lt;/a&gt; to your ECS clusters in all regions where G4 is supported by Amazon Elastic Compute Cloud (Amazon EC2) . Amazon EC2 G4 instances deliver the industry’s most cost-effective GPU instance for deploying machine learning models in production and graphics-intensive applications.&amp;nbsp;&lt;/p&gt;</description>
+      <pubDate>Wed, 09 Oct 2019 16:59:51 +0000</pubDate>
+      <category>marketing:marchitecture/containers-and-deployment,general:products/amazon-ecs</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/announcing-new-aws-elemental-mediaconvert-features-for-accelerated-transcoding-dash-and-avc-video-quality/</link>
+      <guid isPermaLink="false">64b2f8f7fae9a3d1dd951a01481659d666744927</guid>
+      <title>Announcing New AWS Elemental MediaConvert Features for Accelerated Transcoding, DASH, and AVC Video Quality</title>
+      <description>&lt;p&gt;Today, &lt;a href="https://aws.amazon.com/mediaconvert/"&gt;AWS Elemental MediaConvert&lt;/a&gt; adds support for several new features, including improved video quality with single- and multi-pass HQ (High Quality) encoding for H.264 (AVC), expanded Accelerated Transcoding capabilities, and the On Demand profile for DASH output groups.&lt;/p&gt;</description>
+      <pubDate>Wed, 09 Oct 2019 23:55:49 +0000</pubDate>
+      <category>general:products/aws-elemental-mediaconvert</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/new-aws-public-datasets-available/</link>
+      <guid isPermaLink="false">408d0dfee4648c895e9effb7df6a2bc82e0a0eb6</guid>
+      <title>New AWS Public Datasets Available from Audi, MIT, Allen Institute for Cell Science, Finnish Meteorological Institute, and others</title>
+      <description>&lt;p&gt;New AWS Public Datasets Available from Audi, MIT, Allen Institute for Cell Science, Finnish Meteorological Institute, and others.&lt;/p&gt;</description>
+      <pubDate>Wed, 09 Oct 2019 23:13:04 +0000</pubDate>
+      <category>marketing:audience/government-and-education,marketing:audience/public-sector-education,marketing:audience/public-sector-government-local,marketing:audience/public-sector-government-national,marketing:audience/public-sector-government,general:use-case/big-data-analytics-and-business-intelligence-(bi)</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/introducing-amazon-ec2-m5n-m5dn-r5n-and-r5dn-instances-featuring-100-gbps-of-network-bandwidth/</link>
+      <guid isPermaLink="false">787d4fec8b22d0e22fca20334473ad65879a0965</guid>
+      <title>Introducing Amazon EC2 M5n, M5dn, R5n, and R5dn instances featuring 100 Gbps of Network Bandwidth</title>
+      <description>&lt;p&gt;Amazon Web Services (AWS) announces the availability of &lt;a href="https://aws.amazon.com/ec2/" target="_blank"&gt;Amazon EC2&lt;/a&gt; M5n, M5dn, R5n, and R5dn instances that can utilize up to 100 Gbps of network bandwidth, and &lt;a href="https://aws.amazon.com/hpc/efa/" target="_blank"&gt;Elastic Fabric Adapter (EFA)&lt;/a&gt; for HPC/ML workloads. These instances offer significantly higher network performance across all instance sizes, ranging from 25 Gbps of network bandwidth on smaller instance sizes to 100 Gbps of network bandwidth on the largest instance size, and support automatic encryption of in-transit traffic between instances. These new instances are designed for workloads such as databases, High Performance Computing, analytics, Big Data, and in-memory cache that can take advantage of improved network bandwidth and packet rate performance.&lt;/p&gt;</description>
+      <pubDate>Thu, 10 Oct 2019 22:58:59 +0000</pubDate>
+      <category>general:products/amazon-ec2,marketing:marchitecture/compute</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/aws-serverless-application-model-feature-support-updates-for-amazon-api-gateway-and-more/</link>
+      <guid isPermaLink="false">2d69d408b20c3148930fd498404992bd11cbea89</guid>
+      <title>AWS Serverless Application Model feature support updates for Amazon API Gateway and more</title>
+      <description>&lt;p&gt;The &lt;a href="/serverless/sam/"&gt;AWS Serverless Application Model&lt;/a&gt;&amp;nbsp;(AWS SAM) is a specification that extends AWS CloudFormation to provide a simplified syntax to express functions, APIs, and more. The latest SAM release supports four major updates and other features as detailed in the &lt;a href="https://github.com/awslabs/serverless-application-model/releases"&gt;release notes&lt;/a&gt;.&lt;/p&gt;</description>
+      <pubDate>Thu, 10 Oct 2019 00:14:50 +0000</pubDate>
+      <category>marketing:marchitecture/applications,general:products/amazon-api-gateway</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/elasticache-memcached-self-service-updates/</link>
+      <guid isPermaLink="false">f31bc3b6e03b01c1e78c64abf7255f280ce2bb53</guid>
+      <title>Amazon ElastiCache launches self-service updates for Memcached and Redis Cache Clusters</title>
+      <description>&lt;p&gt;You can now use ElastiCache self-service updates feature to apply updates on Memcached and Redis cache clusters, in addition to &lt;a href="/about-aws/whats-new/2019/06/elasticache-self-service-updates/" target="_blank"&gt;Redis replication groups&lt;/a&gt; at the time of your choosing and track the progress in real-time.&lt;/p&gt;</description>
+      <pubDate>Wed, 09 Oct 2019 17:30:37 +0000</pubDate>
+      <category>general:products/amazon-elasticache,marketing:marchitecture/databases</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/introducing-availability-of-amazon-ec2-a1-bare-metal-instances/</link>
+      <guid isPermaLink="false">1d3262aedc620af9e8ebc32efd58d656a989bbe6</guid>
+      <title>Introducing Availability of Amazon EC2 A1 Bare Metal Instances</title>
+      <description>&lt;p&gt;Starting today, new Amazon EC2 A1 bare metal instances are available. Similar to all other A1 instances, the new A1 bare metal instances are powered by AWS Graviton Processors that feature 64-bit Arm Neoverse cores and custom silicon designed by AWS. &amp;nbsp;&lt;/p&gt;</description>
+      <pubDate>Wed, 09 Oct 2019 23:37:54 +0000</pubDate>
+      <category>general:products/amazon-ec2</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/aws-iot-events-is-now-available-in-london-singapore-and-seoul-aws-regions/</link>
+      <guid isPermaLink="false">c3bc28db44b98ed860682c7b81b8bdbb224580d5</guid>
+      <title>AWS IoT Events is now available in London, Singapore, and Seoul AWS Regions</title>
+      <description>&lt;p&gt;&lt;a href="/iot-events/"&gt;AWS IoT Events&lt;/a&gt; is now available in the EU (London), Asia Pacific (Singapore), and Asia Pacific (Seoul) Regions, extending the footprint to 10 AWS regions.&lt;/p&gt;</description>
+      <pubDate>Thu, 10 Oct 2019 00:27:56 +0000</pubDate>
+      <category>marketing:marchitecture/internet-of-things,general:products/aws-iot,general:products/aws-iot-events</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/amazon-msk-now-available-17-aws-regions/</link>
+      <guid isPermaLink="false">a8931f5142c007b3ee974fa2569c9956954cd3c4</guid>
+      <title>Amazon MSK is now available in 17 AWS regions including Sao Paulo, Hong Kong, N. California, and Canada</title>
+      <description>&lt;p&gt;You can now connect your Apache Kafka applications to &lt;a href="/msk/"&gt;Amazon MSK&lt;/a&gt; in South America (Sao Paulo), Asia Pacific (Hong Kong), US West (N. California), and Canada (Central) &lt;a href="/about-aws/global-infrastructure/regional-product-services/"&gt;AWS Regions&lt;/a&gt;.&lt;br /&gt; &lt;/p&gt;</description>
+      <pubDate>Wed, 09 Oct 2019 22:52:21 +0000</pubDate>
+      <category>general:products/amazon-msk,marketing:marchitecture/analytics</category>
+      <author>aws@amazon.com</author>
+    </item>
+    <item>
+      <link>https://aws.amazon.com/about-aws/whats-new/2019/10/amazon-kinesis-data-firehose-adds-support-data-stream-delivery-amazon-elasticsearch-service/</link>
+      <guid isPermaLink="false">86f994b5da4f5acea9997b0fffd37196797d4e58</guid>
+      <title>Amazon Kinesis Data Firehose adds support for data stream delivery to Amazon Elasticsearch Service 7.x clusters</title>
+      <description>&lt;p&gt;&lt;a href="/kinesis/data-firehose/"&gt;Amazon Kinesis Data Firehose&lt;/a&gt; now supports streaming data delivery to Amazon Elasticsearch Service version 7.x clusters for near real-time data analysis and visualization. Kinesis Data Firehose automatically scales to match the throughput of your data and handles all of the underlying stream management.&amp;nbsp;&lt;/p&gt;</description>
+      <pubDate>Wed, 09 Oct 2019 21:06:03 +0000</pubDate>
+      <category>general:products/amazon-kinesis-firehose,general:products/amazon-kinesis,marketing:marchitecture/analytics</category>
+      <author>aws@amazon.com</author>
+    </item>
+  </channel>
+</rss>
