@@ -40,6 +40,36 @@ Resources:
             Path: /sources
             Method: get
             RestApiId: !Ref Api
+        CreateSourcesEvent:
+          Type: Api
+          Properties:
+            Path: /sources
+            Method: post
+            RestApiId: !Ref Api
+        DeleteSourceEvent:
+          Type: Api
+          Properties:
+            Path: /sources
+            Method: delete
+            RestApiId: !Ref Api
+        GetSubscriptionsEvent:
+          Type: Api
+          Properties:
+            Path: /subscriptions
+            Method: get
+            RestApiId: !Ref Api
+        CreateSubscriptionEvent:
+          Type: Api
+          Properties:
+            Path: /subscriptions
+            Method: post
+            RestApiId: !Ref Api
+        DeleteSubscriptionEvent:
+          Type: Api
+          Properties:
+            Path: /subscriptions/{id}
+            Method: delete
+            RestApiId: !Ref Api
 
   Api:
     Type: AWS::Serverless::Api
