@@ -14,7 +14,7 @@ phases:
   
   build:
     commands:
-      - aws cloudformation package --template root.yaml --s3-bucket $S3_BUCKET --output-template root-export.yaml
+      - aws cloudformation package --template root.yaml --s3-bucket $S3_BUCKET --s3-prefix $S3_BUCKET_PREFIX --output-template root-export.yaml
 
 artifacts:
   type: zip
