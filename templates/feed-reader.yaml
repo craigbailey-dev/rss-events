@@ -28,9 +28,6 @@ Resources:
         -
           AttributeName: guidHash
           AttributeType: S
-        -
-          AttributeName: expiration
-          AttributeType: N
       BillingMode: PAY_PER_REQUEST
       TimeToLiveSpecification:
         AttributeName: expiration
