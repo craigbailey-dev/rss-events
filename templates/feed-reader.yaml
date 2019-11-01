@@ -94,10 +94,13 @@ Resources:
             TableName: !Ref ItemsTable
         - SQSPollerPolicy:
             QueueName: !GetAtt ChannelQueue.QueueName
+        - SNSPublishMessagePolicy:
+            TopicName: !Ref TopicName
       Environment:
         Variables:
           DYNAMO_TABLE: !Ref ItemsTable
           QUEUE_URL: !Ref ChannelQueue
+          TOPIC_ARN: !Ref TopicArn
       Events:
         SQSEvent:
           Type: SQS

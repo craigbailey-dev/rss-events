@@ -9,6 +9,7 @@ from flask import (
     request, 
     Response
 )
+import traceback
 from dynamodb_json import json_util as dynamo_json
 
 app = Flask(__name__)
