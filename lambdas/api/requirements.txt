@@ -1,2 +1,3 @@
-requests
+flask
+aws-wsgi
 dynamodb-json
