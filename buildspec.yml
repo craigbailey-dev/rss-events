@@ -12,6 +12,7 @@ phases:
       - cd lambdas/api
       - pip install -r requirements.txt --target .
       - cd ../process-source
+      - pip install -r requirements.txt --target .
       - cd ../..
   
   build:
