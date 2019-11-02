@@ -5,6 +5,7 @@ import requests
 import traceback
 import xml.etree.ElementTree as ET
 from datetime import datetime
+import hashlib
 
 sns_client = boto3.client("sns")
 sqs_client = boto3.client("sqs")
