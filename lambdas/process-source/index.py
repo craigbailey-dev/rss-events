@@ -4,6 +4,7 @@ import json
 import requests
 import traceback
 import xml.etree.ElementTree as ET
+from datetime import datetime
 
 sns_client = boto3.client("sns")
 sqs_client = boto3.client("sqs")
