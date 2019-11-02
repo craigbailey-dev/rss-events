@@ -36,7 +36,7 @@ def parse_xml(filename):
             items.append({
                 "timestamp" : timestamp,
                 "guid_hash" : guid_hash,
-                "item_text" : ET.tostring(item, , method="xml").decode()
+                "item_text" : ET.tostring(item, method="xml").decode()
             })
         elif len(element.getchildren()) == 0:
             channel_attributes["channel-" + element.tag] = {
