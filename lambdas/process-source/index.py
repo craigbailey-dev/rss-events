@@ -38,6 +38,7 @@ def parse_xml(filename):
                 "guid_hash" : guid_hash,
                 "item_text" : ET.tostring(item, method="xml").decode()
             })
+            print(items[-1])
         elif len(element.getchildren()) == 0:
             channel_attributes["channel-" + element.tag] = {
                 "DataType": "String",
@@ -94,6 +95,7 @@ def handler(event, context):
 
             for item in new_items:
                 try:
+                    print(item)
                     sns_client.publish(
                         TopicArn=os.environ["TOPIC_ARN"],
                         Message=item["item_text"],
