@@ -10,9 +10,7 @@ Outputs:
 Parameters:
   SourcesTableName:
     Type: String
-  TopicName:
-    Type: String
-  TopicArn:
+  EventBusName:
     Type: String
 
 Resources:
@@ -21,18 +19,17 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index.handler
-      Runtime: python3.7
+      Runtime: python3.8
       CodeUri: ../lambdas/api
       Timeout: 30
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref SourcesTableName
-        - SNSCrudPolicy:
-            TopicName: !Ref TopicName
+        
       Environment:
         Variables:
           DYNAMO_TABLE: !Ref SourcesTableName
-          TOPIC_ARN: !Ref TopicArn
+          EVENT_BUS_NAME: !Ref EventBusName
       Events:
         GetSourcesEvent:
           Type: Api

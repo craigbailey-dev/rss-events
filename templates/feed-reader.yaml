@@ -6,9 +6,7 @@ Transform:
 Parameters:
   SourcesTableName:
     Type: String
-  TopicName:
-    Type: String
-  TopicArn:
+  EventBusName:
     Type: String
   ScheduleExpression:
     Type: String
@@ -23,48 +21,39 @@ Resources:
           AttributeName: source
           AttributeType: S
         -
-          AttributeName: timestamp
-          AttributeType: N
-        -
-          AttributeName: guidHash
+          AttributeName: guid
           AttributeType: S
       BillingMode: PAY_PER_REQUEST
-      TimeToLiveSpecification:
-        AttributeName: expiration
-        Enabled: true
       KeySchema:
         -
           AttributeName: source
           KeyType: HASH
         -
-          AttributeName: guidHash
+          AttributeName: guid
           KeyType: RANGE
-      LocalSecondaryIndexes:
-        -
-            IndexName: timeSorted
-            KeySchema: 
-              -
-                AttributeName: source
-                KeyType: HASH
-              -
-                AttributeName: timestamp
-                KeyType: RANGE
-            Projection: 
-              ProjectionType: ALL
+
 
   ChannelQueue:
     Type: AWS::SQS::Queue
     Properties:
-      VisibilityTimeout: 60
-      
+      VisibilityTimeout: 90
+
+  ItemQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      FifoQueue: true
+      VisibilityTimeout: 30
+      ContentBasedDeduplication: true
+      MessageRetentionPeriod: 240
+
 
   ListSourcesFunction:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index.handler
-      Runtime: python3.7
+      Runtime: python3.8
       CodeUri: ../lambdas/list-sources
-      Timeout: 90
+      Timeout: 30
       Policies:
         - DynamoDBReadPolicy:
             TableName: !Ref SourcesTableName
@@ -82,28 +71,55 @@ Resources:
             Enabled: True
 
 
-  ProcessSourceFunction:
+  ProcessChannelFunction:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index.handler
-      Runtime: python3.7
+      Runtime: python3.8
       CodeUri: ../lambdas/process-source
-      Timeout: 30
+      Timeout: 60
       Policies:
-        - DynamoDBCrudPolicy:
+        - DynamoDBReadPolicy:
             TableName: !Ref ItemsTable
         - SQSPollerPolicy:
             QueueName: !GetAtt ChannelQueue.QueueName
-        - SNSPublishMessagePolicy:
-            TopicName: !Ref TopicName
+        - SQSSendMessagePolicy:
+            QueueName: !GetAtt ItemQueue.QueueName
       Environment:
         Variables:
           DYNAMO_TABLE: !Ref ItemsTable
-          QUEUE_URL: !Ref ChannelQueue
-          TOPIC_ARN: !Ref TopicArn
+          CHANNEL_QUEUE_URL: !Ref ChannelQueue
+          ITEM_QUEUE_URL: !Ref ItemQueue
       Events:
         SQSEvent:
           Type: SQS
           Properties:
             Queue: !GetAtt ChannelQueue.Arn
+            Enabled: True
+
+
+  ProcessItemFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: python3.8
+      CodeUri: ../lambdas/process-item
+      Timeout: 15
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ItemsTable
+        - SQSPollerPolicy:
+            QueueName: !GetAtt ItemQueue.QueueName
+        - EventBridgePutEventsPolicy:
+            EventBusName: !Ref EventBusName
+      Environment:
+        Variables:
+          DYNAMO_TABLE: !Ref ItemsTable
+          ITEM_QUEUE_URL: !Ref ItemQueue
+          EVENT_BUS_NAME: !Ref EventBusName
+      Events:
+        SQSEvent:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt ItemQueue.Arn
             Enabled: True
