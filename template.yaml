@@ -2,17 +2,41 @@ AWSTemplateFormatVersion: 2010-09-09
 Transform:
 - AWS::Serverless-2016-10-31
 
-
 Parameters:
-  SourcesTableName:
-    Type: String
-  EventBusName:
-    Type: String
   ScheduleExpression:
     Type: String
+  EventBusName:
+    Description: Name of event bus
+    Type: String
+
+Outputs:
+  SourcesTableName:
+    Description: Name of RSS source table
+    Value: !Ref SourcesTable
+  SourcesTableArn:
+    Description: ARN of RSS source table
+    Value: !GetAtt SourcesTable.Arn
+  EventBusName:
+    Description: Name of event bus
+    Value: !Ref EventBus
+  EventBusArn:
+    Description: ARN of event bus
+    Value: !GetAtt EventBus.Arn
 
 Resources:
-   
+
+  SourcesTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: source
+        Type: String
+
+  EventBus:
+    Type: AWS::Events::EventBus
+    Properties:
+      Name: !Ref EventBusName
+
   ItemsTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -52,7 +76,7 @@ Resources:
     Properties:
       Handler: index.handler
       Runtime: python3.8
-      CodeUri: ../lambdas/list-sources
+      CodeUri: lambdas/list-sources
       Timeout: 30
       Policies:
         - DynamoDBReadPolicy:
@@ -76,7 +100,7 @@ Resources:
     Properties:
       Handler: index.handler
       Runtime: python3.8
-      CodeUri: ../lambdas/process-source
+      CodeUri: lambdas/process-source
       Timeout: 60
       Policies:
         - DynamoDBReadPolicy:
@@ -103,7 +127,7 @@ Resources:
     Properties:
       Handler: index.handler
       Runtime: python3.8
-      CodeUri: ../lambdas/process-item
+      CodeUri: lambdas/process-item
       Timeout: 15
       Policies:
         - DynamoDBCrudPolicy:
@@ -111,12 +135,12 @@ Resources:
         - SQSPollerPolicy:
             QueueName: !GetAtt ItemQueue.QueueName
         - EventBridgePutEventsPolicy:
-            EventBusName: !Ref EventBusName
+            EventBusName: !Ref EventBus
       Environment:
         Variables:
           DYNAMO_TABLE: !Ref ItemsTable
           ITEM_QUEUE_URL: !Ref ItemQueue
-          EVENT_BUS_NAME: !Ref EventBusName
+          EVENT_BUS_NAME: !Ref EventBus
       Events:
         SQSEvent:
           Type: SQS

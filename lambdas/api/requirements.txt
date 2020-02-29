@@ -1,3 +1,0 @@
-flask
-aws-wsgi
-dynamodb-json
