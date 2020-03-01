@@ -11,7 +11,7 @@ def handler(event, context):
         body = json.loads(record["body"])
         entry = body["item"]
         entry.update(body["channel"])
-        event_client.put_events(
+        put_events_response = event_client.put_events(
             Entries=[
                 {
                     "Source": body["source"],
@@ -20,6 +20,7 @@ def handler(event, context):
                 }
             ]
         )
+        print(put_events_response)
         dynamo_client.put_item(
             TableName=os.environ["DYNAMO_TABLE"],
             Item={
