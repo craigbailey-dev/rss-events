@@ -9,8 +9,10 @@ event_client = boto3.client('events')
 def handler(event, context):
     for record in event['Records']:
         body = json.loads(record["body"])
-        entry = body["item"]
-        entry.update(body["channel"])
+        entry = {
+            "item": body["item"],
+            "channel": body["channel"]
+        }
         put_events_response = event_client.put_events(
             Entries=[
                 {
@@ -29,7 +31,7 @@ def handler(event, context):
                     "S": body["source"]
                 },
                 "guid": {
-                    "S": body["item"]["itemGuid"]
+                    "S": body["item"]["guid"]
                 }
             }
         )
