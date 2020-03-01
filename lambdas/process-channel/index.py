@@ -153,7 +153,8 @@ def handler(event, context):
                             "channel": channel_attributes,
                             "item": item
                         }),
-                        MessageDeduplicationId=message_hash
+                        MessageDeduplicationId=message_hash,
+                        MessageGroupId=message_hash
                     )
                 except:
                     traceback.print_exc()
