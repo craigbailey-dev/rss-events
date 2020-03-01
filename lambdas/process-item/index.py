@@ -20,7 +20,7 @@ def handler(event, context):
                 }
             ]
         )
-        dynamodb_client.put_item(
+        dynamo_client.put_item(
             TableName=os.environ["DYNAMO_TABLE"],
             Item={
                 "source": {
