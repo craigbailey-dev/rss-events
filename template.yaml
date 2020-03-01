@@ -13,7 +13,7 @@ Outputs:
   SourcesTableName:
     Description: Name of RSS source table
     Value: !Ref SourcesTable
-  SourcesTableArn:
+  SourcesTableArn: 
     Description: ARN of RSS source table
     Value: !GetAtt SourcesTable.Arn
   EventBusName:
@@ -100,7 +100,7 @@ Resources:
     Properties:
       Handler: index.handler
       Runtime: python3.8
-      CodeUri: lambdas/process-source
+      CodeUri: lambdas/process-channel
       Timeout: 60
       Policies:
         - DynamoDBReadPolicy:
