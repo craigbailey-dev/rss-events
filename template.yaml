@@ -80,12 +80,12 @@ Resources:
       Timeout: 30
       Policies:
         - DynamoDBReadPolicy:
-            TableName: !Ref SourcesTableName
+            TableName: !Ref SourcesTable
         - SQSSendMessagePolicy:
             QueueName: !GetAtt ChannelQueue.QueueName
       Environment:
         Variables:
-          DYNAMO_TABLE: !Ref SourcesTableName
+          DYNAMO_TABLE: !Ref SourcesTable
           QUEUE_URL: !Ref ChannelQueue
       Events:
         ScheduleEvent:
