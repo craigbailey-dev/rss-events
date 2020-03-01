@@ -134,8 +134,11 @@ Resources:
             TableName: !Ref ItemsTable
         - SQSPollerPolicy:
             QueueName: !GetAtt ItemQueue.QueueName
-        - EventBridgePutEventsPolicy:
-            EventBusName: !Ref EventBus
+        - Statement:
+            - 
+              Effect: Allow
+              Action: events:PutEvents
+              Resource: !Sub arn:aws:events:${AWS::Region}:${AWS::AccountId}:event-bus/${EventBus}
       Environment:
         Variables:
           DYNAMO_TABLE: !Ref ItemsTable
