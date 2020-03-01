@@ -16,7 +16,8 @@ def handler(event, context):
                 {
                     "Source": body["source"],
                     "Detail": json.dumps(entry),
-                    "EventBusName": os.environ["EVENT_BUS_NAME"]
+                    "EventBusName": os.environ["EVENT_BUS_NAME"],
+                    "DetailType": "New RSS Item"
                 }
             ]
         )
