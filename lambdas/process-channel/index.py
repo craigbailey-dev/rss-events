@@ -13,6 +13,7 @@ import hashlib
 sqs_client = boto3.client("sqs")
 dynamo_client = boto3.client('dynamodb')
 
+
 def parse_rss(text):
     root = ET.fromstring(text)
     channel_properties = {}
@@ -37,7 +38,7 @@ def parse_rss(text):
                 elif item_element.tag == "guid":
                     item["itemGuid"] = item_element.text 
                 elif item_element.tag == "pubDate":
-                    item["itemPubDate"] = datetime.strptime(item_element.text, "%a, %d %b %Y %H:%M:%S %z").isoformat()
+                    item["itemPubDate"] = item_element.text
                 elif item_element.tag == "enclosure":
                     item["itemenClosure"] = item_element.attrib 
                 elif item_element.tag == "source":
@@ -62,9 +63,9 @@ def parse_rss(text):
         elif element.tag == "webMaster":
             channel_properties["channelWebMaster"] = element.text 
         elif element.tag == "pubDate":
-            channel_properties["channelPubDate"] = datetime.strptime(element.text, "%a, %d %b %Y %H:%M:%S %z").isoformat()
+            channel_properties["channelPubDate"] = element.text
         elif element.tag == "lastBuildDate":
-            channel_properties["channelLastBuildDate"] = datetime.strptime(element.text, "%a, %d %b %Y %H:%M:%S %z").isoformat() 
+            channel_properties["channelLastBuildDate"] = element.text
         elif element.tag == "generator":
             channel_properties["channelGenerator"] = element.text 
         elif element.tag == "docs":
