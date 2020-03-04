@@ -5,9 +5,12 @@ Transform:
 Parameters:
   ScheduleExpression:
     Type: String
+    Description: The CloudWatch cron or rate expression to determine how often each RSS feed is checked for new content
+    Default: 'rate(1 hour)'
   EventBusName:
-    Description: Name of event bus
+    Description: Name of event bus to which RSS notifications are sent
     Type: String
+    Default: 'rss'
 
 Outputs:
   SourcesTableName:
@@ -25,26 +28,36 @@ Outputs:
 
 Resources:
 
-  SourcesTable:
-    Type: AWS::Serverless::SimpleTable
-    Properties:
-      PrimaryKey:
-        Name: source
-        Type: String
-
+  # The EventBridge event bus to which RSS notifications are sent
   EventBus:
     Type: AWS::Events::EventBus
     Properties:
       Name: !Ref EventBusName
 
+
+  ## DYNAMO TABLES ##
+
+
+  # Holds all sources of RSS feeds
+  SourcesTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        # 'source' is the URL of the RSS feed
+        Name: source
+        Type: String
+
+  # Holds all processed channel items for each source
   ItemsTable:
     Type: AWS::DynamoDB::Table
     Properties:
       AttributeDefinitions: 
         -
+          # 'source' is the URL of the RSS feed
           AttributeName: source
           AttributeType: S
         -
+          # 'guid' is the guid of the channel item
           AttributeName: guid
           AttributeType: S
       BillingMode: PAY_PER_REQUEST
@@ -57,11 +70,16 @@ Resources:
           KeyType: RANGE
 
 
+  ## SQS QUEUES ##
+
+
+  # Standard queue for processing each RSS source 
   ChannelQueue:
     Type: AWS::SQS::Queue
     Properties:
       VisibilityTimeout: 90
 
+  # FIFO queue for processing channel items
   ItemQueue:
     Type: AWS::SQS::Queue
     Properties:
@@ -71,6 +89,11 @@ Resources:
       MessageRetentionPeriod: 240
 
 
+  ## LAMBDA FUNCTIONS ##
+
+
+  # Runs on a schedule. Reads all sources from the sources DynamoDB table, 
+  # and sends a message to the channel SQS queue for each source.
   ListSourcesFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -94,7 +117,10 @@ Resources:
             Schedule: !Ref ScheduleExpression
             Enabled: True
 
-
+  # Processes messages from the channel SQS queue. Reads the content of
+  # the RSS feed, and extracts channel properties and items. New channel 
+  # items are sent to the item SQS queue for processing, and old channel items
+  # are removed from the items DynamoDB table. 
   ProcessChannelFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -121,7 +147,8 @@ Resources:
             Queue: !GetAtt ChannelQueue.Arn
             Enabled: True
 
-
+  # Processes messages from the item SQS queue. Sends an event to the event bus
+  # and inserts a row into the item DynamoDB table.
   ProcessItemFunction:
     Type: AWS::Serverless::Function
     Properties:

@@ -9,18 +9,21 @@ from datetime import datetime
 import hashlib
 import time
 
+# AWS SDK CLIENTS
 sqs_client = boto3.client("sqs")
 dynamo_client = boto3.client('dynamodb')
 
-
+# Parse XML content of RSS feed
 def parse_rss(text):
     root = ET.fromstring(text)
     channel_properties = {}
     items = []
+    # Parse all elements in channel
     for element in root.findall('./channel/'):
         if element.tag == "item":
             item = {}
             for item_element in element:
+                # Only extract supported item elements
                 if item_element.tag == "category":
                     item.setdefault("categories", [])
                     item["categories"].append(item_element.text)
@@ -44,6 +47,7 @@ def parse_rss(text):
                     item["source"] = item_element.attrib 
                     item["source"]["name"] = item_element.text
             items.append(item)
+        # Only extract supported channel elements
         elif element.tag == "category":
             channel_properties.setdefault("categories", [])
             channel_properties["categories"].append(element.text)
@@ -105,9 +109,12 @@ def parse_rss(text):
             channel_properties["skipHours"] = [int(hour.text) for hour in root.findall('./channel/skipHours/hour')]
         elif element.tag == "skipDays":
             channel_properties["skipDays"] = [day.text for day in root.findall('./channel/skipDays/day')]
+    # Return channel element values and channel items
     return channel_properties, items
  
 
+# List the guids of all channel items from this source that have 
+# already been sent 
 def list_guids(source):
     guids = set()
     next_key = "?"
@@ -135,6 +142,8 @@ def list_guids(source):
     return guids
 
 
+# Delete channel items that are no longer visible in the 
+# channel
 def delete_old_items(source, old_item_guids):
     for i in range(0, len(old_item_guids), 25):
         time_wait = 0.05
@@ -163,9 +172,11 @@ def delete_old_items(source, old_item_guids):
             time_wait = time_wait * 2
 
 
+# Send new channel items to another queue to be processed
 def send_queue_messages(source, channel_attributes, new_items):
     for item in new_items:
         try:
+            # Create hash of message to prevent deduplication
             message_hash = hashlib.md5("{}{}".format(source, item["guid"]).encode("utf-8")).hexdigest()
             sqs_client.send_message(
                 QueueUrl=os.environ["ITEM_QUEUE_URL"],
@@ -183,23 +194,30 @@ def send_queue_messages(source, channel_attributes, new_items):
             traceback.print_exc()
 
 
+# Function handler
 def handler(event, context):
     for record in event['Records']:
         try:
             source = record["body"]
+            # Make HTTP request to get RSS feed content   
             response = urllib.request.urlopen(source)
+            # Extract channel attributes and channel items
             channel_attributes, items = parse_rss(response.read().decode("utf-8"))
+            # Obtain guids of current channel items and already-processed channel items
             item_guids = set([item["guid"] for item in items])
             stored_guids = list_guids(source)
             new_item_guids = item_guids.difference(stored_guids)
             old_item_guids = list(stored_guids.difference(item_guids))
             new_items = [item for item in items if item["guid"] in new_item_guids]
+            # Process new items, delete old items
             send_queue_messages(source, channel_attributes, new_items)
             delete_old_items(source, old_item_guids)
         except:
             print("Error processing source")
             traceback.print_exc()
         finally:
+            # Always delete message from queue, even in an error. 
+            # Parsing this RSS source can be tried again later
             sqs_client.delete_message(
                 QueueUrl=os.environ["CHANNEL_QUEUE_URL"],
                 ReceiptHandle=record["receiptHandle"]

@@ -3,12 +3,15 @@ import json
 import os
 import traceback
 
+# AWS SDK CLIENTS
 dynamo_client = boto3.client('dynamodb')
 sqs_client = boto3.client('sqs')
 
+# Function handler
 def handler(event, context):
     next_scan_key = "?"
     while next_scan_key:
+        # Scan sources table 
         scan_request = {
             "TableName" : os.environ["DYNAMO_TABLE"]
         }
@@ -16,6 +19,7 @@ def handler(event, context):
             request["ExclusiveStartKey"] = next_scan_key
         scan_response = dynamo_client.scan(**scan_request)
         if scan_response["Count"] != 0:
+            # For each source found in table, send message to queue for processing
             for item in scan_response["Items"]:
                 try:
                     sqs_client.send_message(
