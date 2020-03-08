@@ -1,8 +1,10 @@
-
-
-
 ## Introduction
 
+RSS is a popular web syndication format that allows users to view updates to a site. This is a serverless solution that behaves like a news aggregator for RSS, wherein multiple RSS sources are read at given internval, and events for newly discovered items in the RSS channel are sent to an EventBridge event bus. 
+
+## Architecture
+
+![enter image description here](https://d50daux61fgb.cloudfront.net/rss-events/solution-architecture.png)
 
 ## Event Format
 
@@ -68,10 +70,10 @@ The event body adheres to the standard CloudWatch event format, and describes al
    ```json
    { 
 	   "version":  "0", 
-	   "id":  "00000000-0000-0000-0000-000000000000", 
+	   "id":  "7bb52df8-ae60-d674-6f5e-f6cc2ad055c9", 
 	   "detail-type":  "New RSS Item", 
 	   "source":  "https://www.nasa.gov/rss/dyn/breaking_news.rss", 
-	   "account":  "123456789012", 
+	   "account":  "106110356429", 
 	   "time":  "2020-03-07T06:08:01Z", 
 	   "region":  "us-east-1", 
 	   "resources": [], 
