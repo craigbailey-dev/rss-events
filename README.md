@@ -11,6 +11,7 @@ RSS is a popular web syndication format that allows users to view updates to a s
   - **Channel Queue** - SQS queue that dispatches a message for each RSS feed
   - **Items Queue** - SQS queue that dispatches a message for each new channel item in an RSS feed
   - **Event Bus** - EventBridge event bus that receives events for every new channel item
+  - **Error Event Bus** - EventBridge event bus that receives events when a Lambda function fails
   - **List Sources Function** - Lambda function that lists all sources of RSS feeds for processing
   - **Process Sources Function** - Lambda function that checks the RSS feed for new content
   - **Process Items Function** - Lambda function that sends an event to the event bus for each new channel item

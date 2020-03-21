@@ -11,6 +11,24 @@ Parameters:
     Description: Name of event bus to which RSS notifications are sent
     Type: String
     Default: 'rss'
+  ChannelQueueVisibilityTimeout:
+    Description: The amount of seconds to wait until a message is made visible again for the channel SQS queue
+    Type: Number
+    Default: 90
+    MinValue: 65
+  ItemQueueVisibilityTimeout:
+    Description: The amount of seconds to wait until a message is made visible again for the item SQS queue
+    Type: Number
+    Default: 30
+    MinValue: 20
+  ChannelQueueRetention:
+    Description: The amount of seconds to retain a message in the channel SQS queue
+    Type: Number
+    Default: 300
+  ItemQueueRetention:
+    Description: The amount of seconds to retain a message in the item SQS queue
+    Type: Number
+    Default: 300
 
 Outputs:
   SourcesTableName:
@@ -92,16 +110,17 @@ Resources:
   ChannelQueue:
     Type: AWS::SQS::Queue
     Properties:
-      VisibilityTimeout: 90
+      VisibilityTimeout: !Ref ChannelQueueVisibilityTimeout
+      MessageRetentionPeriod: !Ref ChannelQueueRetention
 
   # FIFO queue for processing channel items
   ItemQueue:
     Type: AWS::SQS::Queue
     Properties:
       FifoQueue: true
-      VisibilityTimeout: 30
+      VisibilityTimeout: !Ref ItemQueueVisibilityTimeout
       ContentBasedDeduplication: true
-      MessageRetentionPeriod: 240
+      MessageRetentionPeriod: !Ref ItemQueueRetention
 
 
   ## LAMBDA FUNCTIONS ##
