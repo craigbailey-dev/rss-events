@@ -1,4 +1,4 @@
-## Introduction
+# rss-events
 
 RSS is a popular web syndication format that allows users to view updates to a site. This is a highly configurable serverless solution that behaves like a news aggregator for RSS, wherein multiple RSS sources are read at given internval, and events for newly discovered items in the RSS channel are sent to an EventBridge event bus. 
 

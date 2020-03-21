@@ -195,9 +195,15 @@ def handler(event, context):
             QueueUrl=os.environ["CHANNEL_QUEUE_URL"],
             ReceiptHandle=record["receiptHandle"]
         )
-        source = record["body"]
+        sqs_message = json.loads(record["body"])
+        source = sqs_message["source"]
+        request_headers = sqs_message.get("headers")
         # Make HTTP request to get RSS feed content   
-        response = urllib.request.urlopen(source)
+        request = urllib.request.Request(source)
+        if request_headers:
+            for header, value in request_headers.items():
+                request.add_header(header, value)
+        response = urllib.request.urlopen(request)
         # Extract channel attributes and channel items
         channel_attributes, items = parse_rss(response.read().decode("utf-8"))
         # Obtain guids of current channel items and already-processed channel items

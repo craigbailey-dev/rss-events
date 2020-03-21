@@ -20,11 +20,13 @@ def handler(event, context):
         if scan_response["Count"] != 0:
             # For each source found in table, send message to queue for processing
             for item in scan_response["Items"]:
-                try:
-                    sqs_client.send_message(
-                        QueueUrl=os.environ["QUEUE_URL"],
-                        MessageBody=item["source"]["S"]
-                    )
-                except:
-                    traceback.print_exc()
+                message = {
+                    "source": item["source"]["S"]
+                }
+                if item.get("httpHeaderOverrides"):
+                    message["headers"] = { key: value["S"] for key, value in item["httpHeaderOverrides"]["M"] }
+                sqs_client.send_message(
+                    QueueUrl=os.environ["QUEUE_URL"],
+                    MessageBody=json.dumps(message)
+                )
         next_scan_key = scan_response["LastEvaluatedKey"] if "LastEvaluatedKey" in scan_response else None
