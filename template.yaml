@@ -11,6 +11,10 @@ Parameters:
     Description: Name of event bus to which RSS notifications are sent
     Type: String
     Default: 'rss'
+  ErrorEventBusName:
+    Description: Name of event bus that receives errors from Lambda functions
+    Type: String
+    Default: 'rss-errors'
   ChannelQueueVisibilityTimeout:
     Description: The amount of seconds to wait until a message is made visible again for the channel SQS queue
     Type: Number
@@ -65,7 +69,7 @@ Resources:
   ErrorBus:
     Type: AWS::Events::EventBus
     Properties:
-      Name: !Sub "${EventBusName}-errors"
+      Name: !Ref ErrorEventBusName
 
 
   ## DYNAMO TABLES ##
