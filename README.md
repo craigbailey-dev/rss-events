@@ -18,6 +18,24 @@ RSS is a popular web syndication format that allows users to view updates to a s
 
 ![enter image description here](https://d50daux61fgb.cloudfront.net/rss-events/solution-architecture.png)
 
+
+### Table Schema
+
+#### Sources Table
+
+| Attribute           | Type                | Description                                                                                    |
+| ------------------- |:--------------------| :----------------------------------------------------------------------------------------------|
+| source              | String              | An HTTP/S URL for  the RSS feed                                                                |
+| httpHeaderOverrides | Map<String, String> | A map of HTTP headers to set when making a<br>request to retrieve RSS content from the source  |
+
+#### Items Table
+
+| Attribute      | Type                | Description                                                                                    |
+| ---------------|:--------------------| :----------------------------------------------------------------------------------------------|
+| source         | String              | The URL of the RSS feed                                                                        |
+| guid 		     | String              | The uinique ID of the channel item                                                             |
+
+
 ## Event Format
 
 The event body adheres to the standard CloudWatch event format, and describes all properties of the channel and the specific item in the channel. All properties correspond to the RSS 2.0 specification found [here]([https://cyber.harvard.edu/rss/rss.html](https://cyber.harvard.edu/rss/rss.html)). 
