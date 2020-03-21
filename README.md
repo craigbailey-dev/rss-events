@@ -4,6 +4,18 @@ RSS is a popular web syndication format that allows users to view updates to a s
 
 ## Architecture
 
+### Resources
+
+  - **Sources Table** - DynamoDB table that holds all sources of RSS feeds
+  - **Items Table** - DynamoDB table that record all RSS channel items for which events have been sent
+  - **Channel Queue** - SQS queue that dispatches a message for each RSS feed
+  - **Items Queue** - SQS queue that dispatches a message for each new channel item in an RSS feed
+  - **Event Bus** - EventBridge event bus that receives events for every new channel item
+  - **List Sources Function** - Lambda function that lists all sources of RSS feeds for processing
+  - **Process Sources Function** - Lambda function that checks the RSS feed for new content
+  - **Process Items Function** - Lambda function that sends an event to the event bus for each new channel item
+
+
 ![enter image description here](https://d50daux61fgb.cloudfront.net/rss-events/solution-architecture.png)
 
 ## Event Format
