@@ -1,6 +1,6 @@
 ## Introduction
 
-RSS is a popular web syndication format that allows users to view updates to a site. This is a serverless solution that behaves like a news aggregator for RSS, wherein multiple RSS sources are read at given internval, and events for newly discovered items in the RSS channel are sent to an EventBridge event bus. 
+RSS is a popular web syndication format that allows users to view updates to a site. This is a highly configurable serverless solution that behaves like a news aggregator for RSS, wherein multiple RSS sources are read at given internval, and events for newly discovered items in the RSS channel are sent to an EventBridge event bus. 
 
 ## Architecture
 
@@ -18,6 +18,11 @@ RSS is a popular web syndication format that allows users to view updates to a s
 
 
 ![enter image description here](https://d50daux61fgb.cloudfront.net/rss-events/solution-architecture.png)
+
+## Event Subscriptions
+
+RSS events and Lambda failure events can be processed at the discretion of the consumer of this application. However, it is recommended that at least one rule exist for the error event bus to process Lambda function failures for diagnosis.
+
 
 ## Event Format
 
