@@ -41,6 +41,12 @@ Outputs:
   SourcesTableArn: 
     Description: ARN of RSS source table
     Value: !GetAtt SourcesTable.Arn
+  ItemsTableName:
+    Description: Name of channel item table
+    Value: !Ref ItemsTable
+  ItemsTableArn: 
+    Description: ARN of channel item table
+    Value: !GetAtt ItemsTable.Arn
   EventBusName:
     Description: Name of event bus
     Value: !Ref EventBus
