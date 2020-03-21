@@ -11,10 +11,6 @@ Parameters:
     Description: Name of event bus to which RSS notifications are sent
     Type: String
     Default: 'rss'
-  ErrorEventBusName:
-    Description: Name of event bus that receives errors from Lambda functions
-    Type: String
-    Default: 'rss-errors'
   ChannelQueueVisibilityTimeout:
     Description: The amount of seconds to wait until a message is made visible again for the channel SQS queue
     Type: Number
@@ -53,12 +49,6 @@ Outputs:
   EventBusArn:
     Description: ARN of event bus
     Value: !GetAtt EventBus.Arn
-  ErrorEventBusName:
-    Description: Name of event bus
-    Value: !Ref ErrorBus
-  ErrorEventBusArn:
-    Description: ARN of event bus
-    Value: !GetAtt ErrorBus.Arn
 
 Resources:
 
@@ -70,13 +60,6 @@ Resources:
     Type: AWS::Events::EventBus
     Properties:
       Name: !Ref EventBusName
-
-  # The EventBridge event bus that receives errors from Lambda functions
-  ErrorBus:
-    Type: AWS::Events::EventBus
-    Properties:
-      Name: !Ref ErrorEventBusName
-
 
   ## DYNAMO TABLES ##
 
@@ -160,11 +143,6 @@ Resources:
           Properties:
             Schedule: !Ref ScheduleExpression
             Enabled: True
-      EventInvokeConfig:
-        DestinationConfig:
-          OnFailure:
-            Type: EventBridge
-            Destination: !GetAtt ErrorBus.Arn
 
   # Processes messages from the channel SQS queue. Reads the content of
   # the RSS feed, and extracts channel properties and items. New channel 
@@ -195,11 +173,6 @@ Resources:
           Properties:
             Queue: !GetAtt ChannelQueue.Arn
             Enabled: True
-      EventInvokeConfig:
-        DestinationConfig:
-          OnFailure:
-            Type: EventBridge
-            Destination: !GetAtt ErrorBus.Arn
 
   # Processes messages from the item SQS queue. Sends an event to the event bus
   # and inserts a row into the item DynamoDB table.
@@ -231,8 +204,3 @@ Resources:
           Properties:
             Queue: !GetAtt ItemQueue.Arn
             Enabled: True
-      EventInvokeConfig:
-        DestinationConfig:
-          OnFailure:
-            Type: EventBridge
-            Destination: !GetAtt ErrorBus.Arn

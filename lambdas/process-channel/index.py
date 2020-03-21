@@ -7,6 +7,7 @@ import xml.etree.ElementTree as ET
 from datetime import datetime
 import hashlib
 import time
+import traceback
 
 # AWS SDK CLIENTS
 sqs_client = boto3.client("sqs")
@@ -172,46 +173,56 @@ def delete_old_items(source, old_item_guids):
 # Send new channel items to another queue to be processed
 def send_queue_messages(source, channel_attributes, new_items):
     for item in new_items:
-        # Create hash of message to prevent deduplication
-        message_hash = hashlib.md5("{}{}".format(source, item["guid"]).encode("utf-8")).hexdigest()
-        sqs_client.send_message(
-            QueueUrl=os.environ["ITEM_QUEUE_URL"],
-            MessageBody=json.dumps({
-                "source": source,
-                "channel": channel_attributes,
-                "item": item
-            }),
-            MessageDeduplicationId=message_hash,
-            MessageGroupId=message_hash
-        )
+        try:
+            # Create hash of message to prevent deduplication
+            message_hash = hashlib.md5("{}{}".format(source, item["guid"]).encode("utf-8")).hexdigest()
+            sqs_client.send_message(
+                QueueUrl=os.environ["ITEM_QUEUE_URL"],
+                MessageBody=json.dumps({
+                    "source": source,
+                    "channel": channel_attributes,
+                    "item": item
+                }),
+                MessageDeduplicationId=message_hash,
+                MessageGroupId=message_hash
+            )
+        except:
+            print("Error sending queue message for item")
+            print("Item:", item)
+            traceback.print_exc()
 
 
 # Function handler
 def handler(event, context):
     for record in event['Records']:
-        # Always delete message from queue, even in an error. 
-        # Parsing this RSS source can be tried again later
-        sqs_client.delete_message(
-            QueueUrl=os.environ["CHANNEL_QUEUE_URL"],
-            ReceiptHandle=record["receiptHandle"]
-        )
-        sqs_message = json.loads(record["body"])
-        source = sqs_message["source"]
-        request_headers = sqs_message.get("headers")
-        # Make HTTP request to get RSS feed content   
-        request = urllib.request.Request(source)
-        if request_headers:
-            for header, value in request_headers.items():
-                request.add_header(header, value)
-        response = urllib.request.urlopen(request)
-        # Extract channel attributes and channel items
-        channel_attributes, items = parse_rss(response.read().decode("utf-8"))
-        # Obtain guids of current channel items and already-processed channel items
-        item_guids = set([item["guid"] for item in items])
-        stored_guids = list_guids(source)
-        new_item_guids = item_guids.difference(stored_guids)
-        old_item_guids = list(stored_guids.difference(item_guids))
-        new_items = [item for item in items if item["guid"] in new_item_guids]
-        # Process new items, delete old items
-        send_queue_messages(source, channel_attributes, new_items)
-        delete_old_items(source, old_item_guids)
+        try:
+            sqs_message = json.loads(record["body"])
+            source = sqs_message["source"]
+            request_headers = sqs_message.get("headers")
+            # Make HTTP request to get RSS feed content   
+            request = urllib.request.Request(source)
+            if request_headers:
+                for header, value in request_headers.items():
+                    request.add_header(header, value)
+            response = urllib.request.urlopen(request)
+            # Extract channel attributes and channel items
+            channel_attributes, items = parse_rss(response.read().decode("utf-8"))
+            # Obtain guids of current channel items and already-processed channel items
+            item_guids = set([item["guid"] for item in items])
+            stored_guids = list_guids(source)
+            new_item_guids = item_guids.difference(stored_guids)
+            old_item_guids = list(stored_guids.difference(item_guids))
+            new_items = [item for item in items if item["guid"] in new_item_guids]
+            # Process new items, delete old items
+            send_queue_messages(source, channel_attributes, new_items)
+            delete_old_items(source, old_item_guids)
+        except:
+            print("Error processing source")
+            traceback.print_exc()
+        finally:
+            # Always delete message from queue, even in an error. 
+            # Parsing this RSS source can be tried again later
+            sqs_client.delete_message(
+                QueueUrl=os.environ["CHANNEL_QUEUE_URL"],
+                ReceiptHandle=record["receiptHandle"]
+            )

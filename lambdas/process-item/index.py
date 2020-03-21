@@ -1,6 +1,7 @@
 import boto3
 import os
 import json
+import traceback
 
 # AWS SDK CLIENTS
 sqs_client = boto3.client("sqs")

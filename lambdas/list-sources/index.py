@@ -1,6 +1,7 @@
 import boto3
 import json
 import os
+import traceback
 
 # AWS SDK CLIENTS
 dynamo_client = boto3.client('dynamodb')
@@ -20,13 +21,16 @@ def handler(event, context):
         if scan_response["Count"] != 0:
             # For each source found in table, send message to queue for processing
             for item in scan_response["Items"]:
-                message = {
-                    "source": item["source"]["S"]
-                }
-                if item.get("httpHeaderOverrides"):
-                    message["headers"] = { key: value["S"] for key, value in item["httpHeaderOverrides"]["M"] }
-                sqs_client.send_message(
-                    QueueUrl=os.environ["QUEUE_URL"],
-                    MessageBody=json.dumps(message)
-                )
+                try:
+                    message = {
+                        "source": item["source"]["S"]
+                    }
+                    if item.get("httpHeaderOverrides"):
+                        message["headers"] = { key: value["S"] for key, value in item["httpHeaderOverrides"]["M"] }
+                    sqs_client.send_message(
+                        QueueUrl=os.environ["QUEUE_URL"],
+                        MessageBody=json.dumps(message)
+                    )
+                 except:
+                    traceback.print_exc()               
         next_scan_key = scan_response["LastEvaluatedKey"] if "LastEvaluatedKey" in scan_response else None
