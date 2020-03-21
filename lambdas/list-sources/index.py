@@ -1,7 +1,6 @@
 import boto3
 import json
 import os
-import traceback
 
 # AWS SDK CLIENTS
 dynamo_client = boto3.client('dynamodb')
