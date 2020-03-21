@@ -25,6 +25,12 @@ Outputs:
   EventBusArn:
     Description: ARN of event bus
     Value: !GetAtt EventBus.Arn
+  ErrorEventBusName:
+    Description: Name of event bus
+    Value: !Ref ErrorBus
+  ErrorEventBusArn:
+    Description: ARN of event bus
+    Value: !GetAtt ErrorBus.Arn
 
 Resources:
 
