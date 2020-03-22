@@ -26,7 +26,7 @@ def handler(event, context):
                         "source": item["source"]["S"]
                     }
                     if item.get("httpHeaderOverrides"):
-                        message["headers"] = { key: value["S"] for key, value in item["httpHeaderOverrides"]["M"] }
+                        message["headers"] = { key: value["S"] for key, value in item["httpHeaderOverrides"]["M"].items() }
                     sqs_client.send_message(
                         QueueUrl=os.environ["QUEUE_URL"],
                         MessageBody=json.dumps(message)
