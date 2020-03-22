@@ -31,6 +31,6 @@ def handler(event, context):
                         QueueUrl=os.environ["QUEUE_URL"],
                         MessageBody=json.dumps(message)
                     )
-                 except:
+                except:
                     traceback.print_exc()               
         next_scan_key = scan_response["LastEvaluatedKey"] if "LastEvaluatedKey" in scan_response else None
