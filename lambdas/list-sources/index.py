@@ -16,7 +16,7 @@ def handler(event, context):
             "TableName" : os.environ["DYNAMO_TABLE"]
         }
         if next_scan_key != "?":
-            request["ExclusiveStartKey"] = next_scan_key
+            scan_request["ExclusiveStartKey"] = next_scan_key
         scan_response = dynamo_client.scan(**scan_request)
         if scan_response["Count"] != 0:
             # For each source found in table, send message to queue for processing
