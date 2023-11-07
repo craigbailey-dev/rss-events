@@ -111,7 +111,47 @@ def parse_rss(text):
             channel_properties["skipDays"] = [day.text for day in root.findall('./channel/skipDays/day')]
     # Return channel element values and channel items
     return channel_properties, items
- 
+
+
+#Parse XML content of Atom feed (.atom RSS feeds)
+def atom_parser(text):
+    channel_properties = {}
+    items = []
+
+    root = ET.fromstring(text)
+    atom_namespace = root.tag.split('}')[0][1:]
+    atom_xmlns = f"{{{atom_namespace}}}"
+
+    for element in root.findall(f"{atom_xmlns}entry"):
+        item = {}
+        item["title"] = element.find(f"{atom_xmlns}title").text
+        item["description"] = element.find(f"{atom_xmlns}summary").text
+        item["source"] = root.find((f"{atom_xmlns}link[@rel='self']")).attrib['href']
+        item["guid"] = root.find(f"{atom_xmlns}link[@rel='alternate']").attrib['href']
+        items.append(item)
+
+
+    channel_properties["title"] = root.find(f"{atom_xmlns}title").text
+    channel_properties["link"] = root.find(f"{atom_xmlns}link[@rel='alternate']").attrib['href']
+    channel_properties["language"] = 'en-us'
+
+    subtitle_element = root.find(f"{atom_xmlns}subtitle")
+    if subtitle_element is not None:
+        channel_properties["description"] = subtitle_element.text
+
+    generator_element = root.find(f"{atom_xmlns}generator")
+    if generator_element is not None:
+        channel_properties["generator"] = generator_element.text
+
+    updated_element = root.find(f"{atom_xmlns}updated")
+    if updated_element is not None:
+        channel_properties["updated"] = updated_element.text
+
+    author_element = root.find(f"{atom_xmlns}author/name")
+    if author_element is not None:
+        channel_properties["author"] = author_element.text
+
+    return channel_properties, items
 
 # List the guids of all channel items from this source that have already been sent 
 def list_guids(source):
