@@ -125,7 +125,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index.handler
-      Runtime: python3.8
+      Runtime: python3.11
       CodeUri: lambdas/list-sources
       Timeout: 30
       Policies:
@@ -152,7 +152,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index.handler
-      Runtime: python3.8
+      Runtime: python3.11
       CodeUri: lambdas/process-channel
       Timeout: 60
       Policies:
@@ -180,7 +180,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: index.handler
-      Runtime: python3.8
+      Runtime: python3.11
       CodeUri: lambdas/process-item
       Timeout: 15
       Policies:
