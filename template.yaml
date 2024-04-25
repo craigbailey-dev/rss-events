@@ -143,6 +143,7 @@ Resources:
           Properties:
             Schedule: !Ref ScheduleExpression
             Enabled: True
+            Description: Schedule to list all sources of RSS feeds
 
   # Processes messages from the channel SQS queue. Reads the content of
   # the RSS feed, and extracts channel properties and items. New channel 
