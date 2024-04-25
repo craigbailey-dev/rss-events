@@ -128,6 +128,7 @@ Resources:
       Runtime: python3.8
       CodeUri: lambdas/list-sources
       Timeout: 30
+      Description: Lists all sources of RSS feeds for processing
       Policies:
         - DynamoDBReadPolicy:
             TableName: !Ref SourcesTable
@@ -156,6 +157,7 @@ Resources:
       Runtime: python3.8
       CodeUri: lambdas/process-channel
       Timeout: 60
+      Description: Checks the RSS feed for new content
       Policies:
         - DynamoDBReadPolicy:
             TableName: !Ref ItemsTable
@@ -184,6 +186,7 @@ Resources:
       Runtime: python3.8
       CodeUri: lambdas/process-item
       Timeout: 15
+      Description: Sends an event to the event bus for each new RSS channel item
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref ItemsTable
